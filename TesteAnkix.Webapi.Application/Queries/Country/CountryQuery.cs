@@ -2,27 +2,28 @@
 using System.Net;
 using Framework.Message.Abstraction;
 using Framework.Message.Concrete;
-using TesteAnkix.Webapi.Application.Queries.Channel;
+using System.Collections.Generic;
 
 namespace TesteAnkix.Webapi.Application.Queries.Country
 {
     public class CountryQuery : ICountryQuery
     {
+        List<CountryResultViewModel> listCountry = new List<CountryResultViewModel>();
+
         public CountryQuery()
         {
+            listCountry.Add(new CountryResultViewModel { CountryId = 1, Name = "Portugal" });
+            listCountry.Add(new CountryResultViewModel { CountryId = 2, Name = "United Kingdom" });
+            listCountry.Add(new CountryResultViewModel { CountryId = 2, Name = "Spain" });
+            listCountry.Add(new CountryResultViewModel { CountryId = 2, Name = "France" });
+
         }
 
         public async Task<IApplicationResult<IEnumerable<CountryResultViewModel>>> GetAllAsync()
         {
             IApplicationResult<IEnumerable<CountryResultViewModel>> result = new ApplicationResult<IEnumerable<CountryResultViewModel>>();
 
-            List<CountryResultViewModel> list = new List<CountryResultViewModel>();
-            list.Add(new CountryResultViewModel { CountryId = 1, Name = "Portugal" });
-            list.Add(new CountryResultViewModel { CountryId = 2, Name = "United Kingdom" });
-            list.Add(new CountryResultViewModel { CountryId = 2, Name = "Spain" });
-            list.Add(new CountryResultViewModel { CountryId = 2, Name = "France" });
-
-            result.Result = list;
+            result.Result = listCountry;
 
             if (result.Result.Count() == 0)
             {

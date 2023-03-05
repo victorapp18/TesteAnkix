@@ -1,4 +1,4 @@
-﻿namespace TesteAnkix.Webapi.Application.Queries.Country
+﻿namespace TesteAnkix.Webapi.Application.Queries.Rates
 {
     public static class RawSql
     {

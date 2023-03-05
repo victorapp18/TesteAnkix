@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Framework.Message.Concrete;
 using TesteAnkix.Webapi.Application.Queries.Country;
+using TesteAnkix.Webapi.Application.Queries.Rates;
 
 namespace TesteAnkix.Webapi.Application.Configurations
 {
@@ -19,6 +20,7 @@ namespace TesteAnkix.Webapi.Application.Configurations
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestBehavior<,>));
 
             services.AddScoped<ICountryQuery, CountryQuery>();
+            services.AddScoped<IRatesQuery, RatesQuery>();
             services.AddSingleton(configuration);
             
         }
