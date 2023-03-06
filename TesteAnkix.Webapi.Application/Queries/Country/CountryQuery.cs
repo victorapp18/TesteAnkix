@@ -14,8 +14,8 @@ namespace TesteAnkix.Webapi.Application.Queries.Country
         {
             listCountry.Add(new CountryResultViewModel { CountryId = 1, Name = "Portugal" });
             listCountry.Add(new CountryResultViewModel { CountryId = 2, Name = "United Kingdom" });
-            listCountry.Add(new CountryResultViewModel { CountryId = 2, Name = "Spain" });
-            listCountry.Add(new CountryResultViewModel { CountryId = 2, Name = "France" });
+            listCountry.Add(new CountryResultViewModel { CountryId = 3, Name = "Spain" });
+            listCountry.Add(new CountryResultViewModel { CountryId = 4, Name = "France" });
 
         }
 

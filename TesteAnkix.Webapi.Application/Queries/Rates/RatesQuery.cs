@@ -68,7 +68,7 @@ namespace TesteAnkix.Webapi.Application.Queries.Rates
         {
             IApplicationResult<CalculedResultViewModel> result = new ApplicationResult<CalculedResultViewModel>();
 
-            if(request.Value == 0 || request.VatId == 0 || request.RatesId == 0)
+            if(request.Value == 0 || request.VatId == 0 || request.RateId == 0)
             {
                 result.HttpStatusCode = HttpStatusCode.UnprocessableEntity;
                 result.Validations.Add("Invalid calculed. request can only return logged user record.");
@@ -82,22 +82,22 @@ namespace TesteAnkix.Webapi.Application.Queries.Rates
             switch (request.VatId)
             {
                 case 1:
-                    valuePercent = listRates.Where(x => x.RatesId == request.RatesId).FirstOrDefault().Value * request.Value;
+                    valuePercent = (listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value * request.Value) / 100;
                     rs.Net = request.Value;
                     rs.Gross = request.Value + valuePercent;
                     rs.Vat = valuePercent;
                     break; 
                 case 2:
-                    valuePercent = request.Value;
-                    rs.Gross = (request.Value * 100) / listRates.Where(x => x.RatesId == request.RatesId).FirstOrDefault().Value;
+                    valuePercent = listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value;
+                    rs.Gross = (request.Value * 100) / valuePercent;
                     rs.Vat = request.Value;
                     rs.Net = rs.Gross - rs.Vat;
                     break;
                 case 3:
-                    valuePercent = listRates.Where(x => x.RatesId == request.RatesId).FirstOrDefault().Value * request.Value;
-                    rs.Net = request.Value - valuePercent;
+                   valuePercent = listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value;
                     rs.Gross = request.Value;
-                    rs.Vat = valuePercent;
+                    rs.Vat = (request.Value * valuePercent) / 100;
+                    rs.Net = request.Value - rs.Vat;
                     break;
                 default:
                     result.HttpStatusCode = HttpStatusCode.UnprocessableEntity;

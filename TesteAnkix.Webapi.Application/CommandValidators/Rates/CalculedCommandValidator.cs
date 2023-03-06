@@ -18,7 +18,7 @@ namespace TesteAnkix.Webapi.Application.CommandValidators.Rates
                                      .NotNull()
                                      .WithMessage("Vat field cannot be null."); ;
             
-            RuleFor(p => p.RatesId).NotEmpty()
+            RuleFor(p => p.RateId).NotEmpty()
                                .WithMessage("Rate field cannot be empty.")
                                .NotNull()
                                .WithMessage("Rate field cannot be null.");

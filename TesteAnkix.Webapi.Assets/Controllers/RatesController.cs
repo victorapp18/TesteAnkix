@@ -26,6 +26,6 @@ namespace TesteAnkix.WebApi.Assets.Controllers
         public async Task<IActionResult> GetVatAsync() => await RatesQuery.GetVatAsync();
 
         [HttpPost("calculed"), Produces("application/json", Type = typeof(IApplicationResult<IEnumerable<CalculedResultViewModel>>))]
-        public async Task<IActionResult> GetCalculedAsync([FromForm] CalculedRequestViewMode request) => await RatesQuery.GetCalculedAsync(request);
+        public async Task<IActionResult> GetCalculedAsync([FromBody] CalculedRequestViewMode request) => await RatesQuery.GetCalculedAsync(request);
     }
 }
