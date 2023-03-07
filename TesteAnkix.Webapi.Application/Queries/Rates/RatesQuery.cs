@@ -7,6 +7,13 @@ using System.Collections.Generic;
 
 namespace TesteAnkix.Webapi.Application.Queries.Rates
 {
+    enum VatEnnum
+    {
+        Net = 1,
+        Vat = 2,
+        Gross = 3
+    };
+
     public class RatesQuery : IRatesQuery
     {
         List<RatesResultViewModel> listRates = new List<RatesResultViewModel>();
@@ -81,20 +88,20 @@ namespace TesteAnkix.Webapi.Application.Queries.Rates
 
             switch (request.VatId)
             {
-                case 1:
+                case (int)VatEnnum.Net:
                     valuePercent = (listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value * request.Value) / 100;
                     rs.Net = request.Value;
                     rs.Gross = request.Value + valuePercent;
                     rs.Vat = valuePercent;
                     break; 
-                case 2:
+                case (int)VatEnnum.Vat:
                     valuePercent = listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value;
                     rs.Gross = (request.Value * 100) / valuePercent;
                     rs.Vat = request.Value;
                     rs.Net = rs.Gross - rs.Vat;
                     break;
-                case 3:
-                   valuePercent = listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value;
+                case (int)VatEnnum.Gross:
+                    valuePercent = listRates.Where(x => x.RatesId == request.RateId).FirstOrDefault().Value;
                     rs.Gross = request.Value;
                     rs.Vat = (request.Value * valuePercent) / 100;
                     rs.Net = request.Value - rs.Vat;
